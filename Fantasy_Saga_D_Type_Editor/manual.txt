@@ -1,0 +1,169 @@
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//
+//!!			NEW CONTROLS FOR EDITOR			  !!//
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//
+// CURSOR
+// *Cursor can be moved by using the arrow keys as before
+// *Cursor can be relocated by moving the mouse to a location and left clicking
+// *Pressing SHIFT+S will *snap* the cursor to the grid
+// *+/- can be used to change the size of the grid
+// *The SHIFT+R" key can be used to reset the grid to the default size, 20x20
+// *The coordinates of the cursor is shown in the bottom right corner.
+// Note: A menu element will eventually be added to adjust the grid via numerical input
+
+// *The Left Shift + Arrows key can be used 
+// *to move the cursor tile by tile [for making floors, walls, etc. quickly)
+// *without scrolling
+// *The 1 button is for quick-save
+
+// --
+// SCROLLING
+// *Moving the mouse to the edge of the screen will cause the screen to scroll in that direction
+// *Moving the cursor via keyboard causes the screen to scroll along with the cursor
+// Relocating the cursor via the mouse causes the screen to recenter where the cursor is
+//      center_scrolling() <-- incomplete
+// *Pressing the SHIFT+O key will reset the editors scroll to the default
+// --
+// CHANGING TILES
+// -- 
+// *The { and } keys will cycle through the available tiles for the layer.
+// Tiles can also be specifically chosen through the Tiles Menu->Choose Tile.
+// --
+// PLACING TILES
+// *Pressing ENTER will place a tile in the cursor's location
+// Selecting the Tiles Menu->"Place Tile" command will place a tile
+// --
+// CLEARING A TILE
+// *Pressing C will clear the tile in the cursor's location
+// Selecting the Tiles Menu->"Clear Tile" command will also clear it
+// CLEARING ALL TILES
+// This option is available through the tile menu.
+// SELECTING LAYERS
+// Layers can be selected through the Layers Menu
+// *Layers can be selected by pressing the "L" key to cycle through them,
+// *the current layer will be displayed in text form on screen
+// *Layer Types:
+// *Alpha Blended Background Bitmap - (Used for backgrounds like rolling hills,etc.)
+// *Floor Tile (Used to make floors, on a level below the player)
+// *Wall Tile (Used to make walls, on the same level as the player)
+// *Wall-Patch Tiles (Used to make things like pillars, or torches on walls)
+// *Ceiling Tiles (Used to make ceiling borders for levels)
+// *Top Tiles (Used for large effects like clouds, fog, etc..)
+// *Tag Layer (Used to place tag blocks)
+// *Collision Layer (Used to place collision blocks)
+// *Blend Bitmap (Used for special effects. Not implemented yet)
+// --
+
+// PLACING Alpha Blended Background Bitmap
+// *{ and } Cycles through the background bitmap
+// *ENTER places the background bitmap
+
+
+// Top Tiles - 
+// *Select Top Tile Layer using the "L" key to cycle through to top layer
+// *{ } select large top bitmap
+// *ENTER places the bitmap
+// *SHIFT+C clears the bitmap
+
+
+
+// PLACING COLLISION BLOCKS
+// *As before, placing collision blocks is the same as placing tiles
+// *with the collision grid acting as another layer
+// *Select the collision block layer, then place the collision block
+// *as you would a tile. The GUI is similar to the tiles and is operated through
+// *the collision block menu
+// CLEARING ALL COLLISION BLOCKS
+// This option is available through the collision block menu
+// --
+// PLACING TAG BLOCKS
+// *Tag blocks have three attributes: xpos, ypos, and an id
+// *referencing a tag type. 
+// *Tag blocks are placed just like tiles and collision blocks.
+// *Select the tag block layer, then place the tag block
+// as you would a tile. The GUI is similar to the tiles and
+// is operated through the Tag Block menu. 
+// *<, > can be used to cycle through the available Tag Ids.
+// CLEARING ALL TAG BLOCKS
+// This option is available through the tag block menu
+// CREATE/EDIT TAG TYPE
+// This option is availble through the tag block menu
+// and presents a dialog allowing you to create tag types
+// and edit those already created.
+// 
+// **********************
+// Create/Edit Tag Dialog
+// (or by pressing SHIFT-E)
+// **********************
+// Tags values are initialised to zero.
+// * ? Clicking the delete button will return the tag type value to its initial values
+// *Scene Jump - Scroll box allows you to scroll through the different scene names and their numbers.
+//			    0 is default and NULL.
+// *Press Enter - Checkbox - indicates if you must press enter to activate the action/event trigger
+// *Item - Pressing the item button will open the item dialog box. Select the item in the
+//        item dialog box and press ok to enter its value here. Clicking the x next to the
+//        item button will clear its value.
+// *Patch - Pressing the patch button will open the patch dialog box, allowing you to chose
+//        from the different patches, and position it, and choose its layer.
+// // DEPRECATED Overworld Jump - Scroll box similar to scene jump
+// *Action/Event Trigger - Dialog box containing scroll box and description of event (script) or action
+// Tag Jump -	//when jumping to another scene, the id of the tag in the new scene to jump to (appear at)
+				 An empty box for the map maker to input an integer representing the jump location id
+// *****************************
+// -----------------------
+// PLACING SPRITES
+// Sprites are placed like tags, collision blocks, tiles, etc.
+// *To go into sprite placement mode press the P key to change to sprite placement,
+// or select sprite layer from the layers menu, and when the cursor
+// is in the location you would like the sprite to spawn, either press
+// enter or select 'place sprite' from the sprite menu.
+// *To cycle through the different sprite types, use the { and }
+// keys or use the < and > buttons at the bottom left of the screen.
+// *To change the sprite index into the array of sprites use the Z and X
+// *keys to cycle through.
+// *As with the other layers, the SHIFT+C key clears the sprite where the
+// cursor is located, or the 'clear sprite' command can be used
+// from the sprite menu.
+//-------------------------------
+// CREATE/EDIT SPRITE TYPE
+// This option is availble through the sprite menu
+//
+// and presents a dialog allowing you to create sprite types
+// and edit those already created.
+//******Create/Edit Sprite Type Dialog*************************//
+// A dialog allowing you to edit different sprite types, which
+// you can then cycle through and place using the PLACE SPRITE command
+// Bitmap ID - An ID representing the images used to represent the sprite
+// Action - The Sprites default movement action upon spawn (direction facing, if moving, etc.)
+// Action Trigger ID - A subdialog opens allowing you to scroll through different action trigger id's
+//					   and the speech or event associated with them
+// Immobile Bit - If this is set, the game's AI will not cause the character to walk around the
+//				  the scene (wander).
+// Contains arrows to cycle through the available sprites.
+//----------------------------------
+// CREATE/EDIT MONSTERS
+// Note: Needs to be developed further, currently you can only set the 'class' of monster
+//	     that is encountered. Can be accessed through the "battles" menu
+//---------------------------------------
+// FILE MENU
+// Allows you to save, load, and clear the map.
+// *The SHIFT+V key brings up the save dialog 
+// *The SHIFT+D key brings up the load dialog
+// *The SHIFT+K key clears the entire map (for a new map)
+// *The SHIFT+Q key is used to exit from dialogs
+// *Pressing SHIFT + 1 triggers the auto-save
+
+
+
+
+//-------------FEATURE LIST---------
+
+//Finish tag routines (gain item, place bitmap patch, etc.)
+
+//+Add so that the current tile being placed replaces cursor temporarily
+//+Add animation for wall patch tiles and floor tiles
+
+
+//--------------BUG LIST-----------------
+// Fix Dialog Box trailing cursor problem.
+// Fix quicksave problem (if no filename in cache throws error)
